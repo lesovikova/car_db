@@ -1,7 +1,8 @@
-import React from 'react'
+import React, {useState} from 'react'
 import './TableBody.css';
 import TableRow from '../tableRow/TableRow';
 import NewRow from '../newRow/NewRow';
+import FormNew from '../formNew/FormNew'
 
 
 export default function TableBody() {
@@ -16,24 +17,43 @@ export default function TableBody() {
         {number:6, brand: 'brand6', model: 'model6', colour: 'colour6', engineType: 'engineType6', engineSize: 'engineSize6'},
         {number:7, brand: 'brand7', model: 'model7', colour: 'colour7', engineType: 'engineType7', engineSize: 'engineSize7'},
         {number:8, brand: 'brand8', model: 'model8', colour: 'colour8', engineType: 'engineType8', engineSize: 'engineSize8'},
-    ]
-    console.log(arr);
+                ]
 
+    const [buttonClick, setButtonClick] = useState([])
+    function changeButtonClick(){
+        setButtonClick((arr)=>[...arr, '1']);
+        console.log(buttonClick);
+        console.log(typeof buttonClick);
+    }
+
+    // function addRow(arr){
+    //     arr.map((item) => {
+    //         console.log(item);
+    //         return (<FormNew/>)})
+    // }
+
+        console.log( typeof buttonClick);
   return (
     
     <div className='table-body'>
       {
             arr.map((item) => {
                 return <TableRow number={item.number} 
-                brand= {item.number} 
+                brand= {item.brand} 
                 model={item.model} 
-                colour={item.brand} 
+                colour={item.colour} 
                 engineType={item.engineType} 
                 engineSize ={item.engineSize}
                 key={item.number}/>
             })
         }
-        <NewRow />
+        {/* {buttonClick && <FormNew/>} */}
+
+        {buttonClick && buttonClick.map((item) => {
+            return (<FormNew key={item.index}/>)})}
+
+        <NewRow click={changeButtonClick}/>
+
     </div>
   )
 }
