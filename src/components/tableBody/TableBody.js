@@ -3,12 +3,12 @@ import './TableBody.css';
 import TableRow from '../tableRow/TableRow';
 import NewRow from '../newRow/NewRow';
 import FormNew from '../formNew/FormNew'
+import { type } from '@testing-library/user-event/dist/type';
 
 
 export default function TableBody() {
     
-
-    const arr = [
+const [arr, setArr] = useState([
         {number:1, brand: 'brand1', model: 'model1', colour: 'colour1', engineType: 'engineType1', engineSize: 'engineSize1'},
         {number:2, brand: 'brand2', model: 'model2', colour: 'colour2', engineType: 'engineType2', engineSize: 'engineSize2'},
         {number:3, brand: 'brand3', model: 'model3', colour: 'colour3', engineType: 'engineType3', engineSize: 'engineSize3'},
@@ -17,10 +17,12 @@ export default function TableBody() {
         {number:6, brand: 'brand6', model: 'model6', colour: 'colour6', engineType: 'engineType6', engineSize: 'engineSize6'},
         {number:7, brand: 'brand7', model: 'model7', colour: 'colour7', engineType: 'engineType7', engineSize: 'engineSize7'},
         {number:8, brand: 'brand8', model: 'model8', colour: 'colour8', engineType: 'engineType8', engineSize: 'engineSize8'},
-                ]
+                ])
+    
 
     const [buttonClick, setButtonClick] = useState(false);
     function addRowOnCLick(){
+        console.log(arr);
         setButtonClick(true);
         
     }
@@ -31,7 +33,6 @@ export default function TableBody() {
     }
 
     const [newCar, setNewCar] = useState({ 
-        number: arr.length+1, 
         brand: "", 
         model: "", 
         colour: "", 
@@ -42,16 +43,21 @@ export default function TableBody() {
         const valueName = e.target.name;
         setNewCar(newCarHave => ({
             ...newCarHave,
+             number: arr.length+1, 
             [valueName]: e.target.value
         }))
-        console.log(newCar);
     }
 
     function addNewCar(e){
         e.preventDefault();
-        arr.push(newCar);
+
+        console.log(newCar);
+        console.log(typeof newCar);
+        setArr(arrThere => [...arrThere, newCar])
         console.log(arr);
+        
         discardRow(e);
+
     }
 
   return (

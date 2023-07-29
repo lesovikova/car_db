@@ -3,7 +3,7 @@ import './TableOptionsCell.css'
 
 export default function TableOptionsCell({identifier}) {
   return (
-    <div className='optionsCell'>
+    <div className='optionsCell table-cell'>
       <div className='edit'>
         <img className='options__image' src={require('../../assets/img/edit.png')}/>
       </div>
