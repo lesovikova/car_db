@@ -22,21 +22,37 @@ export default function TableBody() {
     const [buttonClick, setButtonClick] = useState(false);
     function addRowOnCLick(){
         setButtonClick(true);
-        console.log(buttonClick);
+        
     }
 
     function discardRow(e){
-        console.log(e);
         e.preventDefault();
         setButtonClick(false);
-        console.log(buttonClick);
     }
 
-    const [newCar, setNewCar] = useState({})
-    function addNewCar(){
-        setNewCar() 
+    const [newCar, setNewCar] = useState({ 
+        number: arr.length+1, 
+        brand: "", 
+        model: "", 
+        colour: "", 
+        engineType: "", 
+        engineSize: ""})
+
+    function updateNewCar(e){
+        const valueName = e.target.name;
+        setNewCar(newCarHave => ({
+            ...newCarHave,
+            [valueName]: e.target.value
+        }))
+        console.log(newCar);
     }
-    console.log(buttonClick);
+
+    function addNewCar(e){
+        e.preventDefault();
+        arr.push(newCar);
+        console.log(arr);
+        discardRow(e);
+    }
 
   return (
     
@@ -53,7 +69,7 @@ export default function TableBody() {
             })
         }
 
-            {buttonClick && <FormNew discard={discardRow}/>}
+            {buttonClick && <FormNew discard={discardRow} addItem={addNewCar} addValue={updateNewCar}/>}
 
         <NewRow click={addRowOnCLick} />
 
