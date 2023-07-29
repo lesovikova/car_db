@@ -19,20 +19,25 @@ export default function TableBody() {
         {number:8, brand: 'brand8', model: 'model8', colour: 'colour8', engineType: 'engineType8', engineSize: 'engineSize8'},
                 ]
 
-    const [buttonClick, setButtonClick] = useState([])
-    function changeButtonClick(){
-        setButtonClick((arr)=>[...arr, '1']);
+    const [buttonClick, setButtonClick] = useState(false);
+    function addRowOnCLick(){
+        setButtonClick(true);
         console.log(buttonClick);
-        console.log(typeof buttonClick);
     }
 
-    // function addRow(arr){
-    //     arr.map((item) => {
-    //         console.log(item);
-    //         return (<FormNew/>)})
-    // }
+    function discardRow(e){
+        console.log(e);
+        e.preventDefault();
+        setButtonClick(false);
+        console.log(buttonClick);
+    }
 
-        console.log( typeof buttonClick);
+    const [newCar, setNewCar] = useState({})
+    function addNewCar(){
+        setNewCar() 
+    }
+    console.log(buttonClick);
+
   return (
     
     <div className='table-body'>
@@ -47,12 +52,10 @@ export default function TableBody() {
                 key={item.number}/>
             })
         }
-        {/* {buttonClick && <FormNew/>} */}
 
-        {buttonClick && buttonClick.map((item) => {
-            return (<FormNew key={item.index}/>)})}
+            {buttonClick && <FormNew discard={discardRow}/>}
 
-        <NewRow click={changeButtonClick}/>
+        <NewRow click={addRowOnCLick} />
 
     </div>
   )

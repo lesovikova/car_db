@@ -1,18 +1,22 @@
 import React from 'react'
 import './FormNew.css'
 
-export default function FormNew() {
-    
+export default function FormNew({discard, number, addItem}) {
+
+  // function discardForm(e){
+  //   e.preventDefault();
+  // }
+
   return (
-    <div className='form__container'>
-      <form>
+    <div className='form__container' name={number}>
+      <form className='form' onReset={discard}>
         <input className='form__input' type='text' name='brand' placeholder='brand'/>
         <input className='form__input' type='text' name='model' placeholder='model'/>
         <input className='form__input' type='text' name='colour' placeholder='colour'/>
         <input className='form__input' type='text' name='engineType' placeholder='engine type'/>
         <input className='form__input' type='text' name='engineSize' placeholder='engine size'/>
-        <button className='form__button'>Add</button>
-        <button className='form__button'>Discard</button>
+        <button type='submit' className='form__button' onClick={addItem}>Add</button>
+        <button type='reset' className='form__button' onClick={discard}>Discard</button>
       </form>
     </div>
   )
