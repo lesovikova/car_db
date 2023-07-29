@@ -1,0 +1,8 @@
+.options__image {
+    max-width: 30px;
+    width: 40%;
+}
+
+.optionsCell {
+    display: flex;
+}
