@@ -3,7 +3,8 @@ import './TableBody.css';
 import TableRow from '../tableRow/TableRow';
 import NewRow from '../newRow/NewRow';
 import FormNew from '../formNew/FormNew'
-import { type } from '@testing-library/user-event/dist/type';
+import FormEdit from '../formEdit/FormEdit';
+
 
 
 export default function TableBody() {
@@ -59,14 +60,57 @@ const [arr, setArr] = useState([
               ...arrThere.slice(index + 1, arr.length)
             ]);
           }
-    
+
+    const [change, setChange] = useState(0)
+    function changeExisting(number){
+        setChange(number)
+    }
+
+    const [edit, setEdit] = useState({ 
+        brand: "", 
+        model: "", 
+        colour: "", 
+        engineType: "", 
+        engineSize: ""})
+    function getChangedCar(identifier, e) {
+        const valueName = e.target.name;
+        setEdit(editedCar => ({
+            ...editedCar,
+            number: identifier,
+            [valueName]: e.target.value
+        }))
+        console.log(e.target.value);
+        console.log(edit);
+    }
+    function handleSaveChanges(identifier, e){
+        e.preventDefault();
+        const index = arr.findIndex(el => el.number == identifier)
+        console.log(index);
+        arr[index] = edit;
+        console.log(arr);
+        changeExisting(0);
+    }
+
+    function handleCancelEdit(){
+        changeExisting(0)
+    }
 
   return (
     
     <div className='table-body'>
       {
             arr.map((item) => {
-                return <TableRow handleDelete={handleDelete} number={item.number} 
+                return change == item.number ? <FormEdit
+                cancelChanges={handleCancelEdit}  
+                changeValue={getChangedCar} 
+                saveChanges={handleSaveChanges}
+                brand= {item.brand} 
+                model={item.model} 
+                colour={item.colour} 
+                engineType={item.engineType} 
+                engineSize ={item.engineSize} 
+                identifier={item.number}/> : <TableRow handleDelete={handleDelete} handleEdit={changeExisting}
+                number={item.number} 
                 brand= {item.brand} 
                 model={item.model} 
                 colour={item.colour} 
