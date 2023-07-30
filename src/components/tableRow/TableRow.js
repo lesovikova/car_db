@@ -4,7 +4,7 @@ import TableNumberCell from '../tableNumberCell/TableNumberCell';
 import TableCell from '../tableCell/TableCell';
 import TableOptionsCell from '../tableOptionsCell/TableOptionsCell'
 
-export default function TableRow({number, brand, model, colour, engineType, engineSize}) {
+export default function TableRow({number, brand, model, colour, engineType, engineSize, handleDelete}) {
 
   return (
     <div className='table-row' >
@@ -14,7 +14,7 @@ export default function TableRow({number, brand, model, colour, engineType, engi
         <TableCell text={colour}/>
         <TableCell text={engineType}/>
         <TableCell text={engineSize}/>
-        <TableOptionsCell identifier={number}/>
+        <TableOptionsCell identifier={number} handleDelete={handleDelete}/>
     </div>
   )
 }

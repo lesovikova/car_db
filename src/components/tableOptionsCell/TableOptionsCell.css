@@ -3,6 +3,10 @@
     width: 40%;
 }
 
+.optionsCell div:hover {
+    cursor: pointer;
+}
+
 .optionsCell {
     display: flex;
     align-items: center;

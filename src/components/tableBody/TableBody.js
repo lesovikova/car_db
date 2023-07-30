@@ -22,7 +22,6 @@ const [arr, setArr] = useState([
 
     const [buttonClick, setButtonClick] = useState(false);
     function addRowOnCLick(){
-        console.log(arr);
         setButtonClick(true);
         
     }
@@ -43,29 +42,31 @@ const [arr, setArr] = useState([
         const valueName = e.target.name;
         setNewCar(newCarHave => ({
             ...newCarHave,
-             number: arr.length+1, 
+             number: arr[arr.length-1].number+1, 
             [valueName]: e.target.value
         }))
     }
 
     function addNewCar(e){
         e.preventDefault();
-
-        console.log(newCar);
-        console.log(typeof newCar);
-        setArr(arrThere => [...arrThere, newCar])
-        console.log(arr);
-        
+        setArr(arrThere => [...arrThere, newCar])        
         discardRow(e);
-
     }
+
+    function handleDelete(index) {
+            setArr(arrThere => [
+              ...arrThere.slice(0, index-1),
+              ...arrThere.slice(index + 1, arr.length)
+            ]);
+          }
+    
 
   return (
     
     <div className='table-body'>
       {
             arr.map((item) => {
-                return <TableRow number={item.number} 
+                return <TableRow handleDelete={handleDelete} number={item.number} 
                 brand= {item.brand} 
                 model={item.model} 
                 colour={item.colour} 
